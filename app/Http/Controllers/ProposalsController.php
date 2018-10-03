@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Proposal;
+use App\Http\Resources\Proposals\ProposalsResource;
 
 class ProposalsController extends Controller
 {
@@ -31,22 +33,23 @@ class ProposalsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Product  $product
+     * @param  \App\Model\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Proposal $proposal)
     {
-        //
+        // return $proposal;
+        // return new ProposalsResource($proposal);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Product  $product
+     * @param  \App\Model\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Proposal $proposal)
     {
         //
     }
@@ -54,10 +57,10 @@ class ProposalsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Product  $product
+     * @param  \App\Model\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Proposal $proposal)
     {
         //
     }
