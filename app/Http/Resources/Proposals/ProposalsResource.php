@@ -17,10 +17,11 @@ class ProposalsResource extends JsonResource
         return [
             'code'=> $this->code,
             'value'=> $this->value,
+            'date'=> $this->created_at ? $this->created_at->format('d-m-Y') : 'UnKnown',
             'user'=> [
                 'name' => $this->user->name,
-                'email' => $this->user->email,
-            ],
-        ];;
+                'email' => empty($this->user->email) ? 'No Email Provided' : $this->user->email,
+            ]
+        ];
     }
 }
