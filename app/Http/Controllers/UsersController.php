@@ -6,8 +6,18 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\Users\UsersResource;
 use App\Http\Resources\Users\UsersCollection;
+
 class UsersController extends Controller
-{
+{   
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only('index');
+    }
     
     /**
      * Display a listing of the resource.
