@@ -17,7 +17,7 @@ class ProposalsController extends Controller
      */
     public function index()
     {
-        return ProposalsCollection::collection(Proposal::all());
+        return ProposalsCollection::collection(Proposal::paginate(5));
         
     }
 

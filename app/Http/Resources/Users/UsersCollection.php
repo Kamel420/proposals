@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Proposals;
+namespace App\Http\Resources\Users;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProposalsCollection extends JsonResource
+class UsersCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,9 +15,8 @@ class ProposalsCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'number' => $this->id,
-            'code'=> $this->code,
-            'value' => $this->value,
+            'name'=> $this->name,
+            'email' => empty($this->email) ? 'No Email Provided' : $this->email,
         ];
     }
 }

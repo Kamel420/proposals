@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Resources\Users\UsersResource;
+use App\Http\Resources\Users\UsersCollection;
 class UsersController extends Controller
 {
     
@@ -14,7 +16,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        return UsersCollection::collection(User::paginate(5));
     }
 
     /**
@@ -36,7 +38,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-    	//
+        return new UsersResource($user);
     }
 
     /**
