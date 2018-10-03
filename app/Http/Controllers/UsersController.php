@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Proposal;
-use App\Http\Resources\Proposals\ProposalsResource;
-use App\Http\Resources\Proposals\ProposalsCollection;
-
-class ProposalsController extends Controller
+use App\User;
+class UsersController extends Controller
 {
     
     /**
@@ -17,8 +14,7 @@ class ProposalsController extends Controller
      */
     public function index()
     {
-        return ProposalsCollection::collection(Proposal::all());
-        
+        //
     }
 
     /**
@@ -35,23 +31,22 @@ class ProposalsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Proposal  $proposal
+     * @param  \App\Model\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Proposal $proposal)
+    public function show(User $user)
     {
-        // return $proposal;
-        return new ProposalsResource($proposal);
+    	//
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Proposal  $proposal
+     * @param  \App\Model\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proposal $proposal)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -59,10 +54,10 @@ class ProposalsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Proposal  $proposal
+     * @param  \App\Model\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proposal $proposal)
+    public function destroy(User $user)
     {
         //
     }
