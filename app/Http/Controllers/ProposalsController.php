@@ -69,18 +69,13 @@ class ProposalsController extends Controller
         //[sales_agent]
         $sales_agent_code_fractial = Self::generateFractial($requestData['sales_agent']);
 
-        //implode the first and second fractical
-        $implode_string_1 = $proposal_type_code_fractial.$technical_approver_code_fractial;
-        //implode the third and fourth fractical
-        $implode_string_2 = $client_source_code_fractial.$sales_agent_code_fractial;
         //generate the total code
-        $generated_code_array = [$implode_string_1,$requestData['proposal_number'],$implode_string_2];
-        $generated_code = implode("-", $generated_code_array);
+        $generated_code = implode("-", [$proposal_type_code_fractial.$technical_approver_code_fractial,$requestData['proposal_number'],$client_source_code_fractial.$sales_agent_code_fractial]);
 
         //store proposal
         $proposalCreation = new Proposal;
         $proposalCreation->proposal_type = $requestData['proposal_type'];
-        $proposalCreation->technical_approver = $requestData['technical_approver'];
+        $proposalCreation->technical_approver = preg_replace('/[^a-zA-Z]/',' ',$requestData['technical_approver']);
         $proposalCreation->proposal_number = $requestData['proposal_number'];
         $proposalCreation->client_source = $requestData['client_source'];
         $proposalCreation->sales_agent = $requestData['sales_agent'];
