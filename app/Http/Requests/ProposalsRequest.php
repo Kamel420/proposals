@@ -36,7 +36,8 @@ class ProposalsRequest extends FormRequest
             'technical_approver' => 'required|string',
             'proposal_number' => [
                                     'required',
-                                    Rule::in(['0001','0002'])
+                                    Rule::in(['0001','0002']),
+                                    'min:4|max:4'
                                 ],
             'client_source' => [
                                     'required',

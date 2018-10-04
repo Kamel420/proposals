@@ -54,52 +54,30 @@ class ProposalsController extends Controller
 
         //generate code fractical
         //[proposal_type]
-        $proposal_type_code_array = explode(" ", $requestData['proposal_type']);
-        $proposal_type_code_fractial = "";
-        foreach ($proposal_type_code_array as $c) {
-          $proposal_type_code_fractial .= $c[0];
-        }
-        $proposal_type_code_fractial = strtoupper($proposal_type_code_fractial);
+        $proposal_type_code_fractial = Self::generateFractial($requestData['proposal_type']);
 
         //[technical_approver]
-        $technical_approver_code_array = preg_split('~[^a-z]~i',$requestData['technical_approver']);
-        $technical_approver_code_fractial = "";
-        foreach ($technical_approver_code_array as $c) {
-          $technical_approver_code_fractial .= $c[0];
-        }
-        $technical_approver_code_fractial = strtoupper($technical_approver_code_fractial);
-
-        //implode the preivous fractical
-        $implode_string_1 = $proposal_type_code_fractial.$technical_approver_code_fractial;
+        $technical_approver_code_fractial = Self::generateFractial($requestData['technical_approver']);
 
         //[client_source]
-        $client_source_code_array = explode(" ",$requestData['client_source']);
-        $client_source_code_fractial = "";
-        foreach ($client_source_code_array as $c) {
-          $client_source_code_fractial .= $c[0];
-        }
-        $client_source_code_fractial = strtoupper($client_source_code_fractial);
-
+        $client_source_code_fractial = Self::generateFractial($requestData['client_source']);
         if($client_source_code_fractial === "R")
         {
             $client_source_code_fractial = "RE";
         }
 
         //[sales_agent]
-        $sales_agent_code_array = explode(" ", $requestData['sales_agent']);
-        $sales_agent_code_fractial = "";
-        foreach ($sales_agent_code_array as $c) {
-          $sales_agent_code_fractial .= $c[0];
-        }
-        $sales_agent_code_fractial = strtoupper($sales_agent_code_fractial);
+        $sales_agent_code_fractial = Self::generateFractial($requestData['sales_agent']);
 
-        //implode the preivous two fractical
+        //implode the first and second fractical
+        $implode_string_1 = $proposal_type_code_fractial.$technical_approver_code_fractial;
+        //implode the third and fourth fractical
         $implode_string_2 = $client_source_code_fractial.$sales_agent_code_fractial;
-        
         //generate the total code
         $generated_code_array = [$implode_string_1,$requestData['proposal_number'],$implode_string_2];
         $generated_code = implode("-", $generated_code_array);
 
+        //store proposal
         $proposalCreation = new Proposal;
         $proposalCreation->proposal_type = $requestData['proposal_type'];
         $proposalCreation->technical_approver = $requestData['technical_approver'];
@@ -148,5 +126,16 @@ class ProposalsController extends Controller
     public function destroy(Proposal $proposal)
     {
         //
+    }
+
+    public static function generateFractial($intervial)
+    {
+        $code_array = preg_split('~[^a-z]~i', $intervial);
+        $code_fractial = "";
+        foreach ($code_array as $c) {
+          $code_fractial .= $c[0];
+        }
+        $code_fractial = strtoupper($code_fractial);
+        return $code_fractial;
     }
 }
