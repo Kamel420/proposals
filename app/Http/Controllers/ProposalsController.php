@@ -96,7 +96,6 @@ class ProposalsController extends Controller
      */
     public function show(Proposal $proposal)
     {
-        // return $proposal;
         return new ProposalsResource($proposal);
     }
 
@@ -109,7 +108,10 @@ class ProposalsController extends Controller
      */
     public function update(Request $request, Proposal $proposal)
     {
-        //
+        $proposal->update($request->all());
+        return response([
+            'data' => new ProposalsResource($proposal)
+        ],Response::HTTP_CREATED);
     }
 
     /**
