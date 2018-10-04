@@ -106,12 +106,9 @@ class ProposalsController extends Controller
      * @param  \App\Model\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proposal $proposal)
+    public function update(ProposalsRequest $request, Proposal $proposal)
     {
-        $proposal->update($request->all());
-        return response([
-            'data' => new ProposalsResource($proposal)
-        ],Response::HTTP_CREATED);
+        //
     }
 
     /**
