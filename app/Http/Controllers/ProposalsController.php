@@ -119,7 +119,12 @@ class ProposalsController extends Controller
      */
     public function destroy(Proposal $proposal)
     {
-        //
+        try {
+           $proposal->delete();
+            return response(null,Response::HTTP_NO_CONTENT);
+        } catch(Exception $e) {
+            return response(null, Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public static function generateFractial($intervial)
