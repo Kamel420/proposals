@@ -75,7 +75,7 @@ class ProposalsController extends Controller
         //store proposal
         $proposalCreation = new Proposal;
         $proposalCreation->proposal_type = $requestData['proposal_type'];
-        $proposalCreation->technical_approver = preg_replace('/[^a-zA-Z]/',' ',$requestData['technical_approver']);
+        $proposalCreation->technical_approver = strtolower(preg_replace('/[^a-zA-Z]/',' ',$requestData['technical_approver']));
         $proposalCreation->proposal_number = $requestData['proposal_number'];
         $proposalCreation->client_source = $requestData['client_source'];
         $proposalCreation->sales_agent = $requestData['sales_agent'];
