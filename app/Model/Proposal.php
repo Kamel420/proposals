@@ -13,7 +13,7 @@ class Proposal extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'value', 'user_id',
+        'code', 'value', 'user_id','proposal_type','technical_approver','client_source','sales_agent','proposal_number',
     ];
 
     public function user()
