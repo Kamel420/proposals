@@ -143,4 +143,29 @@ class ProposalsController extends Controller
         $code_fractial = strtoupper($code_fractial);
         return $code_fractial;
     }
+
+    public function fetchCode(Request $request)
+    {
+        $requestData = $request->get('code');
+
+        if( !isset($requestData) || strlen($requestData) != 14)
+        {
+            return response([
+                'Error' => 'Please enter the code parameter AND its 14 characters/numbers value (seprate each four with - delimiter ex : DMLL-0002-DCAE)'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $code_id = Proposal::where('code',$requestData)->first()['id'];
+
+        if(!$code_id){
+            return response([
+                'Error' => 'This code can not be found , make sure you entered it correctly'], Response::HTTP_NOT_FOUND);
+        }else{
+            $proposal = Proposal::findOrFail($code_id);
+            return response([
+                'Data' => new ProposalsResource($proposal)
+            ],Response::HTTP_FOUND); 
+        }
+
+
+    }
 }

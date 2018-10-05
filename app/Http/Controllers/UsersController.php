@@ -76,17 +76,18 @@ class UsersController extends Controller
         $perms = ['can_view','can_delete','can_create','can_list'];
         foreach ($requestData as $key => $value) 
         {   
+            if(!in_array($key, $perms))
+            {
+                return response([
+                    'Data' => 'Please enter can_view, can_list, can_delete, can_create parameters only for this function'], Response::HTTP_BAD_REQUEST);
+            }
+            
             if($value !== 0 && $value !== 1)
             {
                 return response([
                     'Error' => 'Please enter 0 for false or 1 for true only for this permission'], Response::HTTP_BAD_REQUEST);
             }
 
-            if(!in_array($key, $perms))
-            {
-                return response([
-                    'Data' => 'Please enter can_view, can_list, can_delete, can_create parameters only for this function'], Response::HTTP_BAD_REQUEST);
-            }
         }  
 
         $user->can_view = $request->get('can_view', $user->can_view);

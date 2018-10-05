@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('proposals', 'ProposalsController');
+Route::Post('/get_proposal_code','ProposalsController@fetchCode');
 Route::apiResource('users', 'UsersController');
 Route::Patch('users/{user_id}/change_permission','UsersController@ChangePermissions');
