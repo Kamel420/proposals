@@ -15,6 +15,7 @@ class UsersCollection extends JsonResource
     public function toArray($request)
     {
         return [
+            'number' => $this->id,
             'name'=> $this->name,
             'email' => empty($this->email) ? 'No Email Provided' : $this->email,
         ];

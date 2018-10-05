@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\Users\UsersResource;
 use App\Http\Resources\Users\UsersCollection;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class UsersController extends Controller
 {   
@@ -16,7 +18,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->only('index');
+        $this->middleware('auth:api');
     }
     
     /**
@@ -64,13 +66,38 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified privileges in users table.
      *
-     * @param  \App\Model\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {
-        //
+    public function ChangePermissions(Request $request, $user_id)
+    {  
+        $user = User::findOrFail($user_id);
+        $requestData = $request->all();
+        $perms = ['can_view','can_delete','can_create','can_list'];
+        foreach ($requestData as $key => $value) 
+        {   
+            if($value !== 0 && $value !== 1)
+            {
+                return response([
+                    'Error' => 'Please enter 0 for false or 1 for true only for this permission'], Response::HTTP_BAD_REQUEST);
+            }
+
+            if(!in_array($key, $perms))
+            {
+                return response([
+                    'Data' => 'Please enter can_view, can_list, can_delete, can_create parameters only for this function'], Response::HTTP_BAD_REQUEST);
+            }
+        }  
+
+        $user->can_view = $request->get('can_view', $user->can_view);
+        $user->can_delete = $request->get('can_delete', $user->can_delete);
+        $user->can_create = $request->get('can_create', $user->can_create);
+        $user->can_list = $request->get('can_list', $user->can_list);
+        $user->save();
+
+        return response([
+           'Data' => 'Ok'
+        ],Response::HTTP_CREATED);
     }
+
 }

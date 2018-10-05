@@ -19,7 +19,13 @@ class ProposalsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index','show');
+        // $this->middleware('auth:api')->except('index','show');
+        $this->middleware('auth:api');
+        $this->middleware('PermissionsWare:can_delete')->only('destroy');
+        $this->middleware('PermissionsWare:can_list')->only('index');
+        $this->middleware('PermissionsWare:can_view')->only('show');
+        $this->middleware('PermissionsWare:can_create')->only('store');
+
     }
     /**
      * Display a listing of the resource.
@@ -118,7 +124,7 @@ class ProposalsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Proposal $proposal)
-    {
+    {   
         try {
            $proposal->delete();
             return response(null,Response::HTTP_NO_CONTENT);
