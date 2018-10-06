@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::apiResource('proposals', 'ProposalsController');
 Route::Post('/get_proposal_code','ProposalsController@fetchCode');
 Route::apiResource('users', 'UsersController');

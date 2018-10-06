@@ -20,7 +20,9 @@ class ProposalsController extends Controller
     public function __construct()
     {
         // $this->middleware('auth:api')->except('index','show');
+        /*authentication needed for all the routes*/
         $this->middleware('auth:api');
+        /*permissions needed for all those routes*/
         $this->middleware('PermissionsWare:can_delete')->only('destroy');
         $this->middleware('PermissionsWare:can_list')->only('index');
         $this->middleware('PermissionsWare:can_view')->only('show');
@@ -28,7 +30,7 @@ class ProposalsController extends Controller
 
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the proposals.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +50,7 @@ class ProposalsController extends Controller
     {
         $requestData = $request->all();
 
-        // restrict the user to enter only the first and last name 
+        // restrict the user to enter only the first and last name for techincial pprover
         $techApprover = $requestData['technical_approver'];
         $techApprover = preg_split('~[^a-z]~i', $techApprover);
         $countValues = count($techApprover);
@@ -95,26 +97,14 @@ class ProposalsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified proposal.
      *
      * @param  \App\Model\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
     public function show(Proposal $proposal)
-    {
+    {   
         return new ProposalsResource($proposal);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Proposal  $proposal
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ProposalsRequest $request, Proposal $proposal)
-    {
-        //
     }
 
     /**
@@ -132,7 +122,7 @@ class ProposalsController extends Controller
             return response(null, Response::HTTP_BAD_REQUEST);
         }
     }
-
+    /*receives the value ex:recap and it returns the shortcut ex: RE*/
     public static function generateFractial($intervial)
     {
         $code_array = preg_split('~[^a-z]~i', $intervial);
@@ -143,7 +133,7 @@ class ProposalsController extends Controller
         $code_fractial = strtoupper($code_fractial);
         return $code_fractial;
     }
-
+    /* this function used to decode the code generated before*/
     public function fetchCode(Request $request)
     {
         $requestData = $request->get('code');
@@ -165,7 +155,5 @@ class ProposalsController extends Controller
                 'Data' => new ProposalsResource($proposal)
             ],Response::HTTP_FOUND); 
         }
-
-
     }
 }
