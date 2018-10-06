@@ -17,6 +17,18 @@ class ProposalsRequest extends FormRequest
         return true;
     }
 
+    protected function validationData()
+    {   
+        //because Rule:in is case sensetive i will convert inputs to lowercase fisrt
+        $all = parent::validationData();
+        //Convert request value to lowercase
+        $all['proposal_type'] = strtolower(preg_replace('~[^a-z]~i',' ', $all['proposal_type']));
+        $all['technical_approver'] = strtolower(preg_replace('~[^a-z]~i',' ', $all['technical_approver']));
+        $all['client_source'] = strtolower(preg_replace('~[^a-z]~i',' ', $all['client_source']));
+        $all['sales_agent'] = strtolower(preg_replace('~[^a-z]~i',' ', $all['sales_agent']));
+        return $all;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -59,11 +71,11 @@ class ProposalsRequest extends FormRequest
     public function messages()
     {
         return [
-            'proposal_type.*' => 'A proposal_type must be Set to web development, digital marketing or web product And case-sensitive applies',
+            'proposal_type.*' => 'A proposal_type must be Set to web development, digital marketing or web product',
             'technical_approver.required'  => 'A technical_approver is required',
             'proposal_number.*'  => 'A proposal_number must be Set to 0001 or 0002',
-            'client_source.*'  => 'A client_source must be Set to recap or digital campaign And case-sensitive applies',
-            'sales_agent.*'  => 'A sales_agent Must be Set to yassmin hassan or ahmed essam And case-sensitive applies',
+            'client_source.*'  => 'A client_source must be Set to recap or digital campaign',
+            'sales_agent.*'  => 'A sales_agent Must be Set to yassmin hassan or ahmed essam',
             'value' => 'required',
         ];
     }

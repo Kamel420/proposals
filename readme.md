@@ -91,10 +91,10 @@ Authorization : {{Beare Token}}
     * Body :\
 {\
 	"proposal_number" : "0002", => could be 0001 or 0002\
-	"proposal_type" : "digital marketing", => could be  web development, digital marketing or web product . in small letters\
-	"technical_approver" : "Mostafa Kamel", => first name and last name only\
-	"client_source" : "digital campaign", => could be recap, digital campaign . in small letters\
-	"sales_agent" : "ahmed essam", => could be yassmin hassan , ahmed essam. in small letters\
+	"proposal_type" : "digital marketing", => could be  web development, digital marketing or web product\
+	"technical_approver" : "Mostafa Kamel", => first name and last name only.\
+	"client_source" : "digital campaign", => could be recap, digital campaign.\
+	"sales_agent" : "ahmed essam", => could be yassmin hassan , ahmed essam.\
 	"value" : "12345" => entered as desired\
 }
 

@@ -15,6 +15,7 @@ class ProposalsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'number' => $this->id ,
             'proposal type' => $this->proposal_type ,
             'technical approver' => $this->technical_approver ,
             'proposal number' => $this->proposal_number ,

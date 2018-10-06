@@ -82,11 +82,11 @@ class ProposalsController extends Controller
 
         //store proposal
         $proposalCreation = new Proposal;
-        $proposalCreation->proposal_type = $requestData['proposal_type'];
+        $proposalCreation->proposal_type = strtolower(preg_replace('~[^a-z]~i',' ', $requestData['proposal_type']));
         $proposalCreation->technical_approver = strtolower(preg_replace('/[^a-zA-Z]/',' ',$requestData['technical_approver']));
         $proposalCreation->proposal_number = $requestData['proposal_number'];
-        $proposalCreation->client_source = $requestData['client_source'];
-        $proposalCreation->sales_agent = $requestData['sales_agent'];
+        $proposalCreation->client_source = strtolower(preg_replace('~[^a-z]~i',' ', $requestData['client_source']));
+        $proposalCreation->sales_agent = strtolower(preg_replace('~[^a-z]~i',' ', $requestData['sales_agent']));
         $proposalCreation->user_id = Auth::id();
         $proposalCreation->value =  $requestData['value'];
         $proposalCreation->code = $generated_code;
